@@ -12,11 +12,6 @@ export const theme = {
     },
     fontSizes: {
         general: '36px',
-        gns: '24px',
         secondary: '20px',
     },
-    fontWeights: {
-      b: 'bold',
-      bb: 'bolder',
-    }
     };

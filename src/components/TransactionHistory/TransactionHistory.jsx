@@ -1,70 +1,39 @@
- import styled from "styled-components";
- import PropTypes from 'prop-types';
-import { Container } from "StyledElements/Container";
-import { theme } from "constants";
+import PropTypes from 'prop-types';
+import { Container } from 'components/Box/Container';
+import { TableStyled, TdStyled } from './Transactions.styled';
 
-const Table = styled.table`
-width: 100%;
-padding: 20px;
-`;
+export const TransactionHistory = ({ items }) => {
+  return (
+    <Container>
+      <TableStyled>
+        <thead>
+          <tr>
+            <TdStyled thead={true}>Type</TdStyled>
+            <TdStyled thead={true}>Amount</TdStyled>
+            <TdStyled thead={true}>Currency</TdStyled>
+          </tr>
+        </thead>
+        <tbody>
+          {items.map(({ id, type, amount, currency }) => (
+            <tr key={id}>
+              <TdStyled>{type}</TdStyled>
+              <TdStyled>{amount}</TdStyled>
+              <TdStyled>{currency}</TdStyled>
+            </tr>
+          ))}
+        </tbody>
+      </TableStyled>
+    </Container>
+  );
+};
 
-const Td = styled.td`
-text-align: center;
-border:${props => props.b? props.b :
-' 1px #8c8e90 solid'};
-font-size: ${props => props.fontSize ?
-props.fontSize :
-props.theme.fontSizes.secondary};
-font-weight: ${props => props.fontWeight ?
-props.fontWeight :
-'normal'};
-color: ${props => props.fontColor ?
-    props.fontColor :
-     props.theme.colors.secondaryText};
-
-`;
-
- export const TransactionHistory = ({items}) => {
-    return ( <Container>
-        <Table>
-    <thead>
-      <tr>
-        <Td fontSize={theme.fontSizes.gns}
-        fontWeight={theme.fontWeights.bb}
-        fontColor={theme.colors.primaryText}
-        b={'none'}>Type</Td>
-        <Td fontSize={theme.fontSizes.gns}
-        fontWeight={theme.fontWeights.bb}
-        fontColor={theme.colors.primaryText}
-        b={'none'}>Amount</Td>
-        <Td fontSize={theme.fontSizes.gns}
-        fontWeight={theme.fontWeights.bb}
-        fontColor={theme.colors.primaryText}
-        b={'none'}>Currency</Td>
-      </tr>
-    </thead>
-  <tbody>
-  {items.map(({id,
-  type,
-  amount,
-  currency}) => (
- <tr key={id}>
-    <Td>{type}</Td>
-    <Td>{amount}</Td>
-    <Td>{currency}</Td>
- </tr>   
-  ))}
-    </tbody>
-  </Table>
-    </Container>)
- }
-
- TransactionHistory.propTypes = {
-    items: PropTypes.arrayOf(
-        PropTypes.exact({
-        id: PropTypes.string,
-        type: PropTypes.string.isRequired,
-        amount: PropTypes.string,
-        currency: PropTypes.string.isRequired
-    }))
- }
+TransactionHistory.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      amount: PropTypes.string.isRequired,
+      currency: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
